@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Grente de Dados</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="Line" name="headerSeparator">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>1881</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>20</y>
+      <width>628</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="scoreLayout">
+     <item>
+      <widget class="QLabel" name="yellowTeamNameLabel">
+       <property name="font">
+        <font>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(237, 212, 0);</string>
+       </property>
+       <property name="text">
+        <string>Yellow Team</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="yellowTeamScoreLabel">
+       <property name="font">
+        <font>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="versusLabel">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>vs</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="blueTeamScoreLabel">
+       <property name="font">
+        <font>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="blueTeamNameLabel">
+       <property name="font">
+        <font>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(52, 101, 164);</string>
+       </property>
+       <property name="text">
+        <string>Blue Team</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="GLMonitorWidget" name="monitorWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>1881</width>
+      <height>871</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(114, 159, 207)</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>24</width>
+     <height>24</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStart"/>
+   <addaction name="separator"/>
+   <addaction name="actionNetwork"/>
+   <addaction name="actionGeometry"/>
+   <addaction name="actionControl"/>
+   <addaction name="separator"/>
+   <addaction name="actionShow_ID"/>
+   <addaction name="actionPathPlanning"/>
+  </widget>
+  <action name="actionNetwork">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/ic_rss_feed_white_18dp_1x.png</normaloff>:/icons/ic_rss_feed_white_18dp_1x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Network</string>
+   </property>
+   <property name="toolTip">
+    <string>Network, Ctrl+Alt+N</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+N</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+  </action>
+  <action name="actionGeometry">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/ic_straighten_white_18dp_1x.png</normaloff>:/icons/ic_straighten_white_18dp_1x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Geometry</string>
+   </property>
+   <property name="toolTip">
+    <string>Geometry, Ctrl+Alt+G</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+G</string>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/icons/ic_play_arrow_white_18dp_1x.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Start</string>
+   </property>
+   <property name="toolTip">
+    <string>Start system</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionPathPlanning">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/ic_timeline_white_18dp_1x.png</normaloff>:/icons/ic_timeline_white_18dp_1x.png</iconset>
+   </property>
+   <property name="text">
+    <string>PathPlanning</string>
+   </property>
+   <property name="toolTip">
+    <string>Show PathPlanning</string>
+   </property>
+  </action>
+  <action name="actionControl">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/ic_settings_input_svideo_white_18dp_1x.png</normaloff>
+     <normalon>:/icons/ic_blur_circular_white_18dp_1x.png</normalon>:/icons/ic_settings_input_svideo_white_18dp_1x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Control</string>
+   </property>
+   <property name="toolTip">
+    <string>Control, Ctrl+Alt+C</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+C</string>
+   </property>
+  </action>
+  <action name="actionShow_ID">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/icons/ic_filter_1_white_18dp_1x.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Show ID</string>
+   </property>
+   <property name="toolTip">
+    <string>Show ID</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>GLMonitorWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>glmonitorwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

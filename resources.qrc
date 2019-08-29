@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>ic_rss_feed_white_18dp_1x.png</file>
+        <file>ic_play_arrow_white_18dp_1x.png</file>
+        <file>ic_straighten_white_18dp_1x.png</file>
+        <file>ic_timeline_white_18dp_1x.png</file>
+        <file>ic_blur_circular_white_18dp_1x.png</file>
+        <file>ic_filter_1_white_18dp_1x.png</file>
+    </qresource>
+    <qresource prefix="/config">
+        <file>config.json</file>
+        <file>defaults.json</file>
+    </qresource>
+</RCC>

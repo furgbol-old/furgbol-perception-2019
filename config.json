@@ -1,0 +1,39 @@
+{
+    "geometry": {
+        "area": {
+            "line": 500,
+            "radius": 1000
+        },
+        "ball": {
+            "radius": 22
+        },
+        "central_radius": 500,
+        "field": {
+            "length": 9000,
+            "width": 6000
+        },
+        "goal": {
+            "depth": 180,
+            "width": 1000
+        },
+        "robot": {
+            "chord_dist": 55,
+            "radius": 85
+        }
+    },
+    "network": {
+        "ai": {
+            "ip": "127.0.0.1",
+            "receive_port": 5678,
+            "send_port": 8765
+        },
+        "referee": {
+            "ip": "224.5.23.1",
+            "port": 10003
+        },
+        "vision": {
+            "ip": "224.5.23.2",
+            "port": 10020
+        }
+    }
+}
