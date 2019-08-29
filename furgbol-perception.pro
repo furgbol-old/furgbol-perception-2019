@@ -17,7 +17,7 @@ INCLUDEPATH += managers/vision-manager \
                utils \
 	       config
 
-INCLUDEPATH += ../proto-lib \
+INCLUDEPATH += ../furgbol-core/include \
                ext/json
 
 # The following define makes your compiler emit warnings if you use
@@ -76,4 +76,5 @@ RESOURCES += \
     resources.qrc
 
 LIBS += -lGLU -lprotobuf -lboost_system -pthread `pkg-config --libs opencv`
-LIBS += -L../proto-lib -lproto
+#LIBS += -L../proto-lib -lproto
+LIBS += -L../furgbol-core/lib -lssl-vision-proto -lssl-refbox-proto -lfurgbol-proto

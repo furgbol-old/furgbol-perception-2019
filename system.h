@@ -9,8 +9,10 @@
 #include "serialFeedback.h"
 #include "aiManager.h"
 #include "feedbackManager.h"
-#include "messages_data_manager.pb.h"
-#include "messages_robocup_ssl_referee.pb.h"
+//#include "messages_data_manager.pb.h"
+//#include "messages_robocup_ssl_referee.pb.h"
+#include <ssl-refbox-proto/referee.pb.h>
+#include <furgbol-core/proto/messages_data_manager.pb.h>
 #include "teamRobot.h"
 #include "enemyRobot.h"
 #include "ball.h"

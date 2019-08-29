@@ -3,7 +3,8 @@
 
 #include "single_include/nlohmann/json.hpp"
 #include "definitions.h"
-#include "messages_control.pb.h"
+//#include "messages_control.pb.h"
+#include <furgbol-core/proto/messages_control.pb.h>
 
 #include <fstream>
 #include <string>

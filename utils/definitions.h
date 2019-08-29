@@ -25,11 +25,12 @@ using namespace std;
 //OpenGL includes
 
 //ProtoLIB includes
-#include "messages_data_manager.pb.h"
+//#include "messages_data_manager.pb.h"
+#include <furgbol-core/proto/messages_data_manager.pb.h>
 
 //System defaults
-const string CONFIG_PATH = "../data-manager-v2/config.json";
-const string DEFAULTS_PATH = "../data-manager-v2/defaults.json";
+const string CONFIG_PATH = "../furgbol-perception/config.json";
+const string DEFAULTS_PATH = "../furgbol-perception/defaults.json";
 
 //NetworkConfig defaults
 const string AI_IP = "127.0.0.1";

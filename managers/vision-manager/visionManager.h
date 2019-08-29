@@ -1,9 +1,12 @@
 #ifndef VISIONMANAGER_H
 #define VISIONMANAGER_H
-#include <messages_robocup_ssl_detection.pb.h>
-#include <messages_robocup_ssl_geometry.pb.h>
-#include <messages_robocup_ssl_wrapper.pb.h>
-#include <messages_vision_manager.pb.h>
+//#include <messages_robocup_ssl_detection.pb.h>
+//#include <messages_robocup_ssl_geometry.pb.h>
+//#include <messages_robocup_ssl_wrapper.pb.h>
+//#include <messages_vision_manager.pb.h>
+
+#include <ssl-vision-proto/messages_robocup_ssl_wrapper.pb.h>
+#include <furgbol-core/proto/messages_vision_manager.pb.h>
 
 #include "definitions.h"
 #include "ball.h"

@@ -2,7 +2,7 @@
 #define BALL_H
 
 #include "definitions.h"
-#include "messages_vision_manager.pb.h"
+#include <furgbol-core/proto/messages_vision_manager.pb.h>
 
 struct visionBall{
     visionBall(): confidence(0.f), found(false){ pose = Mat_<float>(3,1); }

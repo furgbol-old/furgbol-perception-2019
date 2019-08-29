@@ -1,6 +1,7 @@
 #ifndef TEAMROBOT_H
 #define TEAMROBOT_H
-#include "messages_ai_data_manager.pb.h"
+//#include "messages_ai_data_manager.pb.h"
+#include <furgbol-core/proto/messages_ai_data_manager.pb.h>
 #include "robot.h"
 
 enum KickType{

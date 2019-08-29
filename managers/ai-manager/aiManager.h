@@ -1,6 +1,7 @@
 #ifndef AIMANAGER_H
 #define AIMANAGER_H
-#include "messages_ai_data_manager.pb.h"
+//#include "messages_ai_data_manager.pb.h"
+#include <furgbol-core/proto/messages_ai_data_manager.pb.h>
 #include "definitions.h"
 #include "teamRobot.h"
 

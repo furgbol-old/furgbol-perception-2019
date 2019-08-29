@@ -1,7 +1,8 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
-#include "messages_vision_manager.pb.h"
+//#include "messages_vision_manager.pb.h"
+#include <furgbol-core/proto/messages_vision_manager.pb.h>
 #include "definitions.h"
 
 struct visionRobot{
