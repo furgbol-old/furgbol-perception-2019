@@ -83,8 +83,8 @@ bool VisionManager::readVisionData(const SSL_DetectionFrame& package)
         frame_number = package.frame_number();
         delay = package.t_sent() - package.t_capture();
         updateEntities();
-        //calculateKalmanFilter();
         resetVisionData();
+        read_all_cameras.get_subscriber().on_next(frame_number);
         return true;
     }
     else return false;

@@ -1,6 +1,8 @@
 ﻿#ifndef SYSTEM_H
 #define SYSTEM_H
 
+#include <memory>
+
 #include <QObject>
 
 #include "config.h"
@@ -9,13 +11,14 @@
 #include "serialFeedback.h"
 #include "aiManager.h"
 #include "feedbackManager.h"
-//#include "messages_data_manager.pb.h"
-//#include "messages_robocup_ssl_referee.pb.h"
-#include <ssl-refbox-proto/referee.pb.h>
-#include <furgbol-core/proto/messages_data_manager.pb.h>
 #include "teamRobot.h"
 #include "enemyRobot.h"
 #include "ball.h"
+
+#include <rxcpp/rx.hpp>
+#include <furgbol-core/io/multicast_receiver.h>
+#include <ssl-refbox-proto/referee.pb.h>
+#include <furgbol-core/proto/messages_data_manager.pb.h>
 
 class System: public QObject
 {
@@ -36,6 +39,11 @@ private:
     VisionManager *vision_manager;
 
     SSL_Referee referee_data;
+
+    std::unique_ptr<furgbol::io::MulticastReceiver> vision_receiver_;
+    rxcpp::composite_subscription vision_subscription_;
+    rxcpp::composite_subscription vision_manager_subscription_;
+    void on_vision_data_(const std::string&);
 
 private slots:
     void readAIData();

@@ -6,7 +6,7 @@
 
 QT += core gui widgets opengl network
 TEMPLATE = app
-CONFIG += c++11
+CONFIG += c++14
 
 TARGET = perception
 
@@ -18,6 +18,7 @@ INCLUDEPATH += managers/vision-manager \
 	       config
 
 INCLUDEPATH += ../furgbol-core/include \
+               ../furgbol-core/ext/RxCpp/Rx/v2/src \
                ext/json
 
 # The following define makes your compiler emit warnings if you use
@@ -77,4 +78,4 @@ RESOURCES += \
 
 LIBS += -lGLU -lprotobuf -lboost_system -pthread `pkg-config --libs opencv`
 #LIBS += -L../proto-lib -lproto
-LIBS += -L../furgbol-core/lib -lssl-vision-proto -lssl-refbox-proto -lfurgbol-proto
+LIBS += -L../furgbol-core/lib -lssl-vision-proto -lssl-refbox-proto -lfurgbol-proto -lfurgbol-core-io

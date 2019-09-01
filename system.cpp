@@ -14,7 +14,7 @@ System::System()
 
     ai_send = new QUdpSocket(this);
     ai_receive = new QUdpSocket(this);
-    vision = new QUdpSocket(this);
+    //vision = new QUdpSocket(this);
     referee = new QUdpSocket(this);
 
     resetRefereeData();
@@ -24,10 +24,12 @@ System::System()
     cout<<"\nDECLARANDO SLOTS E SINAIS..."<<endl;
     cout<<"IP: "<<Config::network.ai_ip<<"\tPORTA: "<<Config::network.ai_receive_port<<endl;
     connect(ai_receive, SIGNAL(readyRead()), this, SLOT(readAIData()));
-    cout<<"IP: "<<Config::network.vision_ip<<"\tPORTA: "<<Config::network.vision_port<<endl;
-    connect(vision, SIGNAL(readyRead()), this, SLOT(readVisionData()));
+//    cout<<"IP: "<<Config::network.vision_ip<<"\tPORTA: "<<Config::network.vision_port<<endl;
+//    connect(vision, SIGNAL(readyRead()), this, SLOT(readVisionData()));
     cout<<"IP: "<<Config::network.referee_ip<<"\tPORTA: "<<Config::network.referee_port<<endl;
     connect(referee, SIGNAL(readyRead()), this, SLOT(readRefereeData()));
+
+    vision_receiver_ = std::make_unique<furgbol::io::MulticastReceiver>("0.0.0.0", Config::network.vision_ip, Config::network.vision_port);
 }
 System::~System()
 {
@@ -57,12 +59,12 @@ void System::start()
     }
     else cout<<"Nao foi possivel conectar no Referee."<<endl;
 
-    ans = vision->bind(QHostAddress::AnyIPv4, Config::network.vision_port, QUdpSocket::ShareAddress);
-    if(ans) {
-        vision->joinMulticastGroup(Config::network.multi_vision);
-        cout<<"Pronto para receber dados da SSL Vision."<<endl;
-    }
-    else cout<<"Nao foi possivel conectar na SSL Vision."<<endl;
+//    ans = vision->bind(QHostAddress::AnyIPv4, Config::network.vision_port, QUdpSocket::ShareAddress);
+//    if(ans) {
+//        vision->joinMulticastGroup(Config::network.multi_vision);
+//        cout<<"Pronto para receber dados da SSL Vision."<<endl;
+//    }
+//    else cout<<"Nao foi possivel conectar na SSL Vision."<<endl;
 
     serial->connect();
     ans = serial->connected();
@@ -73,6 +75,14 @@ void System::start()
         cout<<"Nao foi possivel iniciar a comunicação serial"<<endl;
     }
     Clock::setStartTime();
+    vision_subscription_ = vision_receiver_->datagram()
+        .subscribe_on(rxcpp::observe_on_new_thread())
+        .subscribe([this](std::string datagram) {
+            on_vision_data_(std::move(datagram)); });
+    vision_manager_subscription_ = vision_manager->read_all_cameras.get_observable()
+            .subscribe_on(rxcpp::observe_on_new_thread())
+            .subscribe([this](long) {
+                sendAIData(); });
 }
 void System::stop()
 {
@@ -82,12 +92,27 @@ void System::stop()
         referee->leaveMulticastGroup(Config::network.multi_referee);
         referee->close();
     }
-    if(vision->BoundState) {
-        vision->leaveMulticastGroup(Config::network.multi_vision);
-        vision->close();
-    }
+//    if(vision->BoundState) {
+//        vision->leaveMulticastGroup(Config::network.multi_vision);
+//        vision->close();
+//    }
     if(serial->connected()){
         serial->disconnect();
+    }
+
+    vision_subscription_.unsubscribe();
+}
+
+void System::on_vision_data_(const std::string& datagram) {
+    SSL_WrapperPacket wrapper;
+    if (wrapper.ParseFromString(datagram)) {
+        if (wrapper.has_detection()) {
+            SSL_DetectionFrame detection;
+            detection.CopyFrom(wrapper.detection());
+            vision_manager->readVisionData(detection);
+        }
+    } else {
+        cout << "error parsing vision datagram" << endl;
     }
 }
 

@@ -5,6 +5,7 @@
 //#include <messages_robocup_ssl_wrapper.pb.h>
 //#include <messages_vision_manager.pb.h>
 
+#include <rxcpp/rx.hpp>
 #include <ssl-vision-proto/messages_robocup_ssl_wrapper.pb.h>
 #include <furgbol-core/proto/messages_vision_manager.pb.h>
 
@@ -41,6 +42,8 @@ public:
     void mountVisionPackage(VisionPackage& package);
 
     bool readVisionData(const SSL_DetectionFrame& package);
+
+    rxcpp::subjects::subject<long> read_all_cameras;
 };
 
 #endif // VISIONMANAGER_H
