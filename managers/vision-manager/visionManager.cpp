@@ -45,7 +45,7 @@ bool VisionManager::readVisionData(const SSL_DetectionFrame& package)
             ball_v.found = true;
         }
     }
-
+    cout << "11111" << endl;
     /*Robots*/
     SSL_DetectionRobot aux_robot;
     int num_robots;
@@ -63,7 +63,7 @@ bool VisionManager::readVisionData(const SSL_DetectionFrame& package)
             blue_v[robot_id].found = true;
         }
     }
-
+    cout << "22222" << endl;
     num_robots = package.robots_yellow_size();
     for(i = 0 ; i<num_robots ; i++){
         aux_robot = package.robots_yellow(i);
@@ -78,16 +78,19 @@ bool VisionManager::readVisionData(const SSL_DetectionFrame& package)
             yellow_v[robot_id].found = true;
         }
     }
-
+    cout << "33333" << endl;
     if(allFieldRead()){
+        cout << "44444" << endl;
         frame_number = package.frame_number();
         delay = package.t_sent() - package.t_capture();
         updateEntities();
         resetVisionData();
         read_all_cameras.get_subscriber().on_next(frame_number);
+        cout << "55555" << endl;
         return true;
     }
-    else return false;
+    cout << "666666" << endl;
+    return false;
 }
 
 void VisionManager::resetVisionData()

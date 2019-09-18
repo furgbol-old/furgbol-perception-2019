@@ -30,6 +30,7 @@ System::System()
     connect(referee, SIGNAL(readyRead()), this, SLOT(readRefereeData()));
 
     vision_receiver_ = std::make_unique<furgbol::io::MulticastReceiver>("0.0.0.0", Config::network.vision_ip, Config::network.vision_port);
+    ai_sender_ = std::make_unique<furgbol::io::UDPSender>("239.0.0.1", Config::network.ai_send_port);
 }
 System::~System()
 {
@@ -79,11 +80,8 @@ void System::start()
         .subscribe_on(rxcpp::observe_on_new_thread())
         .subscribe([this](std::string datagram) {
             on_vision_data_(std::move(datagram)); });
-    vision_manager_subscription_ = vision_manager->read_all_cameras.get_observable()
-            .subscribe_on(rxcpp::observe_on_new_thread())
-            .subscribe([this](long) {
-                sendAIData(); });
 }
+
 void System::stop()
 {
     cout<<"CONEXÕES FINALIZADAS."<<endl;
@@ -109,11 +107,30 @@ void System::on_vision_data_(const std::string& datagram) {
         if (wrapper.has_detection()) {
             SSL_DetectionFrame detection;
             detection.CopyFrom(wrapper.detection());
-            vision_manager->readVisionData(detection);
+            if (vision_manager->readVisionData(detection)) {
+                send_ai_data_();
+            }
         }
     } else {
         cout << "error parsing vision datagram" << endl;
     }
+}
+
+void System::send_ai_data_() {
+    VisionPackage vision_package;
+    vision_manager->mountVisionPackage(vision_package);
+    DataPackage data_package;
+    data_package.mutable_vision()->CopyFrom(vision_package);
+    referee_mutex_.lock();
+    data_package.mutable_referee()->CopyFrom(referee_data);
+    referee_mutex_.unlock();
+    ControlPackage* control_data = data_package.mutable_control();
+    control_data->set_field_side(Config::control.field_side);
+    control_data->set_team_color(Config::control.team_color);
+    control_data->set_id_gk(Config::control.id_gk);
+    std::string data;
+    data_package.SerializeToString(&data);
+    ai_sender_->send(std::move(data));
 }
 
 void System::sendAIData()
@@ -195,7 +212,9 @@ void System::readRefereeData()
         QByteArray data;
         data.resize(referee->pendingDatagramSize());
         referee->readDatagram(data.data(), data.size());
+        referee_mutex_.lock();
         referee_data.ParseFromArray(data.data(), data.size());
+        referee_mutex_.unlock();
         cout << referee_data.command() << endl;
         cout<<"Leitura finalizada."<<endl;
         int yellow_score = referee_data.yellow().score();
@@ -232,9 +251,4 @@ void System::resetRefereeData(){
     blue_team->set_timeouts(4);
     blue_team->set_timeout_time(300000000);
     blue_team->set_goalie(0);
-}
-
-void readFeedbackData()
-{
-
 }

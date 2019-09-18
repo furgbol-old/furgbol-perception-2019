@@ -2,6 +2,7 @@
 #define SYSTEM_H
 
 #include <memory>
+#include <mutex>
 
 #include <QObject>
 
@@ -17,6 +18,7 @@
 
 #include <rxcpp/rx.hpp>
 #include <furgbol-core/io/multicast_receiver.h>
+#include <furgbol-core/io/udp_sender.h>
 #include <ssl-refbox-proto/referee.pb.h>
 #include <furgbol-core/proto/messages_data_manager.pb.h>
 
@@ -39,11 +41,13 @@ private:
     VisionManager *vision_manager;
 
     SSL_Referee referee_data;
+    std::mutex referee_mutex_;
 
     std::unique_ptr<furgbol::io::MulticastReceiver> vision_receiver_;
+    std::unique_ptr<furgbol::io::UDPSender> ai_sender_;
     rxcpp::composite_subscription vision_subscription_;
-    rxcpp::composite_subscription vision_manager_subscription_;
     void on_vision_data_(const std::string&);
+    void send_ai_data_();
 
 private slots:
     void readAIData();
