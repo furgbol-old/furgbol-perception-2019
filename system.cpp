@@ -64,14 +64,14 @@ void System::start()
     }
     else cout<<"Nao foi possivel conectar na SSL Vision."<<endl;
 
-    serial->connect();
-    ans = serial->connected();
-    if(ans){
-        cout<<"Pronto para receber dados por serial"<<endl;
-    }
-    else{
-        cout<<"Nao foi possivel iniciar a comunicação serial"<<endl;
-    }
+//    serial->connect();
+//    ans = serial->connected();
+//    if(ans){
+//        cout<<"Pronto para receber dados por serial"<<endl;
+//    }
+//    else{
+//        cout<<"Nao foi possivel iniciar a comunicação serial"<<endl;
+//    }
     Clock::setStartTime();
 }
 void System::stop()

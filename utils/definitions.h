@@ -57,7 +57,7 @@ enum FieldSize {
 const int FRAMES_FOUNDED = 5;
 const int FRAMES_NOT_FOUNDED = 50;
 
-const int NUM_CAMERAS = 4;
+const int NUM_CAMERAS = 1;
 
 const int NUM_MAX_ROBOTS = 12;
 
